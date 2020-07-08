@@ -1,0 +1,141 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+INSERT ALL
+	INTO PRINCIPAL VALUES(
+		'000000000', 'Ingrid', 'Williamson', '01-Jan-1955', '111111111', '(817) 496-2800', 'Ingrid')
+	INTO PRINCIPAL VALUES(
+		'000000001', 'James', 'Jones', '01-Feb-1960', '111222111', '(817) 496-2801', 'James')
+	INTO PRINCIPAL VALUES(
+		'000000002', 'Margaret', 'Barnett', '01-Mar-1958', '111333111', '(817) 496-2805', 'Margaret')
+SELECT * FROM DUAL;
+
+INSERT ALL
+	INTO TEACHER VALUES(
+	'100000000', 'John', 'Baulch', '10-Jan-1950', '555111111', '(214) 336-2828', 'John', '000000000', '23-Sep-1981')
+	INTO TEACHER VALUES(
+	'100000001', 'Joshua', 'Hosch', '01-Feb-1948', '555222111', '(817) 871-2820', 'Joshua', '000000000', '15-Sep-2000')
+	INTO TEACHER VALUES(
+	'100000002', 'Julie', 'Elliott', '01-Mar-1968', '555333111', '(972) 896-2845', 'Julie', '000000002', '15-Sep-1992')
+	INTO TEACHER VALUES(
+	'100000100', 'Patricia', 'Martin', '15-Jul-1947', '555444111', '(682) 336-2828', 'Patricia', '000000002', '19-Aug-1993')
+	INTO TEACHER VALUES(
+	'100000055', 'Brian', 'Quijano', '02-Nov-1981', '555666111', '(972) 871-2845', 'Brian', '000000000', '20-Jul-2006')
+	INTO TEACHER VALUES(
+	'100012002', 'Eric', 'Serrano', '11-Mar-1982', '555777111', '(972) 896-2845', 'Eric', '000000002', '25-Jun-2006')
+	INTO TEACHER VALUES(
+	'100032105', 'Prabir', 'Shah', '10-Jan-1945', '555888111', '(682) 336-2835', 'Prabir', null, '05-Jun-1979')
+	INTO TEACHER VALUES(
+	'100043211', 'Joseph', 'Rush', '21-Feb-1957', '555999111', '(817) 871-2820', 'Joseph', '000000000', '21-Aug-1988')
+	INTO TEACHER VALUES(
+	'100002222', 'Alpana', 'Subah', '11-Oct-1965', '666333111', '(972) 896-2845', 'Alpana', '000000001', '10-Sep-1999')
+SELECT * FROM DUAL;
+
+INSERT ALL
+	INTO COUNSELOR VALUES(
+		'200002546', 'Deborah', 'Williams', '16-Oct-1975', '444111111', '(972) 486-2836', 'Deborah')
+	INTO COUNSELOR VALUES(
+		'200001098', 'Catherine', 'Levee', '18-Feb-1967', '444222111', '(817) 656-3750', 'Catherine')
+	INTO COUNSELOR VALUES(
+		'200001121', 'Alexandra', 'Taylor', '01-Mar-1958', '444333111', '(817) 446-5829', 'Alexandra')
+	INTO COUNSELOR VALUES(
+		'200000987', 'Cynthia', 'Lewis', '19-Apr-1970', '444555111', '(214) 567-8901', 'Cynthia')
+SELECT * FROM DUAL;
+
+-- The following table is not used in any of the queries that accompany phase 3 of the project.
+--
+INSERT ALL
+	INTO ATTENDANCE_CLERK VALUES(
+		'500005501', 'Taylor', 'Stewart', '21-May-1969', '333111111', '(817) 555-5640', 'Taylor')
+	INTO ATTENDANCE_CLERK VALUES(
+		'500005309', 'Marshall', 'Smith', '23-Feb-1966', '333222111', '(817) 324-8791', 'Marshall')
+SELECT * FROM DUAL;
+
+INSERT ALL
+	INTO STUDENT VALUES(
+		'Taylor', 'Stewart', '888123543', 'SIP', '123 X Dr., Y City, TX 70666', '(123) 456-8765')
+	INTO STUDENT VALUES(
+		'Martin', 'Murphey', '888123112', 'SIP', '456 z AVE., Y City, TX 70664', '(123) 456-7654')
+	INTO STUDENT VALUES(
+		'Vatsala', 'Sabnis', '888123321', 'REG', '123 X Dr., Y City, TX 70667', '(123) 456-6543')
+	INTO STUDENT VALUES(
+		'Sushant', 'Goyal', '888123654', 'SIP', '123 X Dr., Y City, TX 70666', '(123) 456-5432')
+	INTO STUDENT VALUES(
+		'Marshall', 'Eadie', '888123981', 'REG', '123 X Dr., Y City, TX 70665', '(123) 456-4321')
+	INTO STUDENT VALUES(
+		'Walter', 'Sansders', '888123762', 'REG', '123 X Dr., Y City, TX 70666', '(123) 456-3210')
+	INTO STUDENT VALUES(
+		'Azia', 'McWilliams', '888123549', 'REG', '123 X Dr., Y City, TX 70664', '(123) 456-2109')
+	INTO STUDENT VALUES(
+		'Victoria', 'Chan', '888123065', 'SIP', '123 X Dr., Y City, TX 70666', '(123) 456-1098')
+SELECT * FROM DUAL;
+
+INSERT ALL
+	INTO COURSE VALUES(
+		'12345', 'A', 2006, 'AP', 'English', '100000000', 'C100', 'Lecture Room', 10, 1)
+	INTO COURSE VALUES(
+		'12345', 'B', 2006, 'Regular', 'English', '100000100', 'B102', 'Lecture Room', 10, 2)
+	INTO COURSE VALUES(
+		'23456', 'A', 2006, 'AP', 'Algebra', '100012002', 'C104', 'Lecture Room', 10, 3)
+	INTO COURSE VALUES(
+		'23456', 'B', 2006, 'Regular', 'Algebra', '100000055', 'C110', 'Lecture Room', 10, 3)
+	INTO COURSE VALUES(
+		'34567', 'A', 2006, 'AP', 'U.S. History', '100000001', 'B112', 'Lecture Room', 10, 2)
+	INTO COURSE VALUES(
+		'34567', 'B', 2006, 'Regular', 'U.S. History', '100043211', 'A112', 'Lecture Room', 10, 2)
+	INTO COURSE VALUES(
+		'45678', 'A', 2006, 'AP', 'Chemistry', '100000002', 'C220', 'Lab Room', 10, 1)
+	INTO COURSE VALUES(
+		'45678', 'B', 2006, 'Regular', 'Chemistry', '100032105', 'C210', 'Lab Room', 10, 1)
+SELECT * FROM DUAL;
+
+INSERT ALL
+	INTO TAKES VALUES(
+		'888123549', '12345', 'B', 2006, 80)
+	INTO TAKES VALUES(
+		'888123549', '23456', 'A', 2006, 70)
+	INTO TAKES VALUES(
+		'888123549', '45678', 'A', 2006, 65)
+	INTO TAKES VALUES(
+		'888123543', '12345', 'A', 2006, 67)
+	INTO TAKES VALUES(
+		'888123543', '12345', 'B', 2006, 73)
+	INTO TAKES VALUES(
+		'888123543', '23456', 'A', 2006, 70)
+	INTO TAKES VALUES(
+		'888123112', '23456', 'B', 2006, 85)
+	INTO TAKES VALUES(
+		'888123112', '34567', 'A', 2006, 80)
+	INTO TAKES VALUES(
+		'888123112', '34567', 'B', 2006, 79)
+	INTO TAKES VALUES(
+		'888123321', '45678', 'A', 2006, 97)
+	INTO TAKES VALUES(
+		'888123321', '12345', 'A', 2006, 95)
+	INTO TAKES VALUES(
+		'888123321', '23456', 'B', 2006, 99)
+SELECT * FROM DUAL;
