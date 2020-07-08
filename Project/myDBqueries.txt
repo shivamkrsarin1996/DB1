@@ -1,0 +1,98 @@
+-- QUERY #1
+-- The following query finds the list of students (first name, last name, and student ID) who do not have 3
+-- courses on their schedule.  Remember that each student is supposed to have exactly 3 courses.  This 
+-- query helps the counselors find these students and put them in more classes.
+
+SELECT fName as First_Name, lName as Last_Name, S_ID as StudentID
+FROM STUDENT
+WHERE S_ID NOT IN(
+	SELECT S_ID 
+	FROM TAKES
+	GROUP BY S_ID
+	HAVING COUNT(*) = 3)
+ORDER BY lName, fName ASC;
+
+
+
+
+
+
+-- QUERY #2
+-- The following query will find the students who are enrolled in more than one class for a certain period 
+-- of time.  This is a discrepency that the couselors need to fix at the beginning of every year.
+
+SELECT	fName as First_Name, lName as Last_Name, S_ID as StudentID
+FROM	STUDENT
+WHERE	S_ID IN(
+	SELECT		S_ID as StudentID
+	FROM		TAKES t, COURSE c
+	WHERE		t.CNumber = c.CNumber AND t.Year = c.Year AND t.Sess = c.Sess
+	GROUP BY	S_ID
+	HAVING		COUNT(DISTINCT Period) < 3
+	)
+ORDER BY lName, fName ASC;
+
+
+
+
+
+
+-- QUERY #3
+-- The following query will print out the schecule for one student: 
+-- 'Vatsala Sabnis'.  By changing the fName and the lName, we can print out the 
+-- schedule for any of the students.  They print out one of these for each student 
+-- at the beginning of the year.
+-- This is a triple join.  
+--
+SELECT	fName as First_Name, lName as Last_Name, s.S_ID as StudentID, c.CNumber, c.Sess, Period, RmNum
+FROM	STUDENT s, TAKES t, COURSE c
+WHERE	(fName = 'Vatsala' AND lName = 'Sabnis') AND t.S_ID = s.S_ID AND
+	(c.CNumber = t.CNumber AND c.Sess = t.Sess AND c.Year = t.Year)
+ORDER BY Period ASC;
+
+
+
+
+
+
+-- QUERY #4
+-- The following query, finds the name, ID, and the GPA of students who have a GPA of less than 3.2 who
+-- have not seen a counselor recently (i.e, as recently as '01-Sep-2005').  These guys need some serious 
+-- counseling!
+--
+SELECT 		GPA, s.S_ID AS StudentID, fName AS First_Name, lName AS Last_Name
+FROM		(SELECT		S_ID, AVG(Grade)/25 AS GPA
+		FROM		TAKES
+		GROUP BY	S_ID
+		HAVING		AVG(Grade) < 80) t, STUDENT s
+WHERE		s.S_ID = t.S_ID AND 
+		NOT EXISTS (
+			SELECT	CDate
+			FROM	CONSULTS_DATE c
+			WHERE	c.S_ID = s.S_ID AND
+				CDate > '01-Sep-2005'
+			);
+
+
+
+
+
+-- QUERY #5
+-- The following query will print out the list of students with their highest grades in one or more of 
+-- their courses.  It is certainly not my preferred method of doing it though.  But I am doing it this
+-- way to have a SELECT statement within my SELECT clause (not the main one though).  That was one of
+-- the requirements of the project!
+--
+--
+SELECT	fName as First_Name, lName as Last_Name, HighestGrade
+FROM	STUDENT s,
+	(SELECT	DISTINCT t.S_ID, 
+		(SELECT	DISTINCT Grade 
+		FROM 	TAKES t2
+		WHERE 	t.S_ID=t2.S_ID AND Grade >= ALL
+			(SELECT Grade FROM TAKES t3 WHERE t3.S_ID=t2.S_ID)
+		) AS HighestGrade
+	FROM	TAKES t) xTable
+WHERE	s.S_ID = xTable.S_ID
+ORDER BY lName, fName ASC;
+
