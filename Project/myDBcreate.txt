@@ -1,0 +1,145 @@
+CREATE TABLE PRINCIPAL(
+	P_ID	 char(9) 	not null,
+	fName	 varchar(25) 	not null,
+	lName	 varchar(25) 	not null,
+	DOB	 date,
+	SSN	 char(9)	not null,
+	EPhone	 varchar(20),
+	Password varchar(30),
+	primary key(P_ID),
+	unique(SSN)
+);
+
+CREATE TABLE TEACHER(
+	T_ID	 char(9) 	not null,
+	fName	 varchar(25) 	not null,
+	lName	 varchar(25) 	not null,
+	DOB	 date,
+	SSN	 char(9)	not null,
+	EPhone	 varchar(20),
+	Password varchar(30),
+	P_ID	 char(9),
+	EDate	 date,
+	primary key(T_ID),
+	foreign key(P_ID) references PRINCIPAL(P_ID)
+		on delete cascade,
+	unique(SSN)
+);
+
+CREATE TABLE COUNSELOR(
+	c_ID	 char(9) 	not null,
+	fName	 varchar(25) 	not null,
+	lName	 varchar(25) 	not null,
+	DOB	 date,
+	SSN	 char(9)	not null,
+	EPhone	 varchar(20),
+	Password varchar(30),
+	primary key(C_ID),
+	unique(SSN)
+);
+
+CREATE TABLE ATTENDANCE_CLERK(
+	A_ID	 char(9) 	not null,
+	fName	 varchar(25) 	not null,
+	lName	 varchar(25) 	not null,
+	DOB	 date,
+	SSN	 char(9)	not null,
+	EPhone	 varchar(20),
+	Password varchar(30),
+	primary key(A_ID),
+	unique(SSN)
+);
+
+CREATE TABLE STUDENT(
+	fName		varchar(25)	not null,
+	lName		varchar(25)	not null,
+	S_ID		char(9)		not null,
+	Classification	char(3) 	not null
+		check (Classification = 'REG' or Classification = 'SIP'),
+	Address		char(75),
+	Phone		varchar(20),
+	primary key(S_ID)
+);
+
+-- This table was not populated for phase 3 of the project.  It is here 
+-- just for the purpose of completeness.
+--
+CREATE TABLE ABSENCE_REC(
+	S_ID	char(9)		not null,
+	ADate	date		not null,
+	Type	char(3)		not null
+		check(Type = 'EXC' or Type = 'UNX' or Type = 'EVT'),
+	A_ID	char(9) 	not null,
+	primary key(ADate),
+	unique(S_ID, ADate),
+	foreign key(S_ID) references STUDENT(S_ID)
+		on delete cascade,
+	foreign key(A_ID) references ATTENDANCE_CLERK(A_ID)
+		on delete cascade
+);
+
+CREATE TABLE COURSE(
+	CNumber		varchar(8)		not null,
+	Sess		varchar(6)		not null,
+	Year		int			not null
+			check(Year > 1600 and Year < 2400),
+	Type		varchar(7)		not null
+			check(Type = 'AP' or Type = 'Regular' or Type = 'Honors'),
+	CName		varchar(25),
+	T_ID		char(9) 		not null,
+	RmNum		char(5)			not null,
+	R_Type		varchar(15)		not null,
+	Capacity	int,
+	Period		int			not null
+			check(Period between 0 and 9),
+	primary key(CNumber, Sess, Year),
+	foreign key(T_ID) references TEACHER(T_ID) 
+		on delete cascade
+);
+
+CREATE TABLE TAKES(
+	S_ID		char(9)			not null,
+	CNumber		varchar(8)		not null,
+	Sess		varchar(6)		not null,
+	Year		int			not null,
+	Grade		int
+		check(Grade = null or (Grade between 0 and 100)),
+	primary key(S_ID, CNumber, Sess, Year),
+	foreign key(S_ID) references STUDENT(S_ID)
+		on delete cascade,
+	foreign key(CNumber, Sess, Year) references COURSE(CNumber, Sess, Year)
+		on delete cascade
+);
+
+CREATE TABLE CONSULTS_DATE(
+	S_ID	char(9)		not null,
+	C_ID	char(9) 	not null,	
+	cDate	date		not null,
+	primary key(CDate),
+	unique(S_ID, C_ID, CDate),
+	foreign key(S_ID) references STUDENT(S_ID)
+		on delete cascade,
+	foreign key(C_ID) references COUNSELOR(C_ID)
+		on delete cascade
+);
+
+-- This table was not populated for phase 3 of the project.  It is here 
+-- just for the purpose of completeness.
+--
+CREATE TABLE MISBEHAVIOR_ACTION( 
+	S_ID	char(9)		not null,
+	P_ID	char(9) 	not null,
+	T_ID	char(9) 	not null,
+	begDate	date		not null,	
+	endDate	date		not null,	
+	Type	char(3)		not null
+		check(Type = 'SUS' OR Type = 'IHS' OR Type = 'THD'),
+	primary key(begDate, endDate, Type),
+	foreign key(S_ID) references STUDENT(S_ID)
+		on delete cascade,
+	foreign key(P_ID) references PRINCIPAL(P_ID)
+		on delete cascade,
+	foreign key(T_ID) references TEACHER(T_ID) 
+		on delete cascade
+);	
+
