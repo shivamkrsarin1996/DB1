@@ -47,10 +47,11 @@ SELECT s.station_name, t.train_no, COUNT (p.passenger_id) AS passenger_count
 
 
 -- QUERY #4
--- LIST OF OUT OF LIFE (MORE THAN 10 YRS. OF AGE) BOGIES FOR EACH CLASS.
+-- LIST OF OUT OF LIFE (MORE THAN 10 YRS. OF AGE) BOGIES FOR EACH CLASS WITH OWNER STATION.
 
-SELECT b.class, COUNT (b.Bogie_No) 
-	FROM  s20_1_bogie b
-	WHERE (b.manufactured_year < 2010)
-	GROUP BY b.class
-	ORDER BY b.class;
+SELECT s.station_name, b.class, COUNT (b.Bogie_No) 
+	FROM  s20_1_station s, s20_1_bogie b
+	WHERE (b.manufactured_year < 2010) AND (b.station_code = s.station_code)
+	GROUP BY s.station_name, b.class
+	ORDER BY s.station_name,b.class;
+
